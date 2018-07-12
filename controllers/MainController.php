@@ -4,6 +4,6 @@ class MainController
 {
     public function index()
     {
-        echo 'controller work';
+        include VIEWS.'main.php';
     }
 }

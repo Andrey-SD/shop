@@ -1,14 +1,15 @@
 <?php
 
-namespace App;
-
 use App\Route;
 
 class Init
 {
     static function start()
     {
-        $route = new Route();
-        $route -> routing();
+        define('ROOT', dirname( __DIR__).'/');
+        define('VIEWS', ROOT.'/public/views/');
+
+        require_once dirname( __DIR__).'/vendor/autoload.php';
+
     }
 }
