@@ -1,0 +1,41 @@
+/*section>div{*/
+    /*width: 80%;*/
+    /*margin: 0 auto;*/
+    /*background-color: aliceblue;*/
+/*}*/
+.cont_carousel{
+    width: 100%;
+    /*float: left;*/
+}
+section img{
+    width: 660px;
+    height: 630px;
+}
+
+.nav-div{
+    margin: 10px;
+}
+
+.tab-content{
+    padding: 5px;
+    border-left: 1px solid #DCDCDC;
+    border-right: 1px solid #DCDCDC;
+    border-bottom: 1px solid #DCDCDC;
+}
+
+.product_price{
+    text-align: right;
+    font-size: 25px;
+}
+
+.product_price:before{
+    content: "Цена:";
+    font-size: 20px;
+
+
+}
+
+.product_price:after{
+    content:"грн";
+
+}

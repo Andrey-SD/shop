@@ -2,7 +2,5 @@
 
 use App\Init;
 
-//require_once dirname(__FILE__) . '/vendor/autoload.php';
-//Init::start();
-
-echo dirname(__FILE__);
+require_once dirname( __DIR__).'/vendor/autoload.php';
+Init::start();
