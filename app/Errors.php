@@ -14,5 +14,6 @@ class Errors
     public function errorsShow($error_code)
     {
         http_response_code($error_code);
+        exit();
     }
 }

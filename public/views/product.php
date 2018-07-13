@@ -29,19 +29,7 @@
 
                         <div class="item active">
                             <img src="/views/img/126.jpeg" alt="Los Angeles" style="width:100%;">
-
                         </div>
-
-                        <div class="item">
-                            <img src="/views/img/126.jpeg" alt="Chicago" style="width:100%;">
-
-                        </div>
-
-                        <div class="item">
-                            <img src="/views/img/126.jpeg" alt="New York" style="width:100%;">
-
-                        </div>
-
                     </div>
 
                     <!-- Left and right controls -->
@@ -57,10 +45,10 @@
             </div>
         </div>
         <div class="col-lg-6 col-xs-6 col-md-6 parent-bottom">
-            <h1>Название</h1>
-            <p>description</p>
+            <h1><?php echo $product['name']; ?></h1>
+            <p><?php echo $product['description']; ?></p>
             <div class="class-bottom">
-                <span class="product_price">100</span>
+                <span class="product_price"><?php echo $product['price']; ?></span>
                 <button class="btn btn-primary">В корзину</button>
                 <button class="btn btn-primary">Купить</button>
             </div>
@@ -77,11 +65,11 @@
 
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
-                <h3>Название</h3>
-                <p>Описание.</p>
+                <h3><?php echo $product['name']; ?></h3>
+                <p><?php echo $product['description']; ?>.</p>
             </div>
             <div id="menu1" class="tab-pane fade">
-                <h3>Название</h3>
+                <h3><?php echo $product['name']; ?></h3>
                 <p>Характеристики</p>
             </div>
             <div id="menu2" class="tab-pane fade">
