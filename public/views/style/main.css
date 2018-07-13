@@ -2,3 +2,7 @@ body>*{
     width: 100%;
 /*    border: 1px solid gray;*/
 }
+
+.form-group label{
+    margin-top: 20px;
+}

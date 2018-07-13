@@ -5,12 +5,14 @@
 
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <form>
+                <form action="/login" method="POST">
                     <div class="form-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                        <input type="text" class="form-control" placeholder="Email"
+                               name='email'
+                               value="<?php echo 'andrey@andrey.com'.@$_POST['email'] ?>">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+                        <input type="password" class="form-control" name='password' placeholder="Пароль" value="123456">
                     </div>
                     <div class="checkbox">
                         <label>
@@ -18,7 +20,7 @@
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Вход</button>
-                    <button class="btn btn-default">Авторизация</button>
+                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-default">Авторизация</a>
                 </form>
             </div>
         </div>
@@ -49,20 +51,32 @@
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form>
+                <form action="/register" method="POST">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Введите имя</label>
-                    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Имя">
+                    <input type="text" name='name'
+                           class="form-control" aria-describedby="emailHelp"
+                           placeholder="Имя" value="andrey">
                   </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Введите Email</label>
+                        <input type="email" name='email'
+                               class="form-control" aria-describedby="emailHelp"
+                               placeholder="Email" value="andrey@andrey.com">
+                    </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Введите пароль</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+                    <input type="password" name='password'
+                           class="form-control"
+                           placeholder="Пароль" value="123456">
                   </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Вход/Регистрация</button>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Повторите пароль</label>
+                        <input type="password" name="re_password"
+                               class="form-control"
+                               placeholder="Повторите пароль" value="123456">
+                    </div>
+                  <button type="submit" class="btn btn-primary">Регистрация</button>
                 </form>
             </div>
         </div>
