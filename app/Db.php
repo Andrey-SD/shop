@@ -64,8 +64,3 @@ class Db
 
     }
 }
-
-//$db = new Db();
-//$db->execute("INSERT Into cars (title,description) values('130','120');");
-//$result = $db->query("Select * from cars;");
-//print_r($result);
