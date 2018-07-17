@@ -21,7 +21,9 @@ class Db
             $this->pdo = new PDO("$prefix:host=$host;
                                         dbname=$database",
                 $user, $password);
-        } catch (PDOException $e) { }
+        } catch (PDOException $e) {
+            echo $e;
+        }
 
         return $this;
     }
@@ -30,7 +32,7 @@ class Db
     {
         $query_id = $this->pdo->prepare($sql_query);
         $query_id->execute($values);
-        return($query_id->lastInsertId());
+        return($this->pdo->lastInsertId());
     }
 
     public function query($sql_query,$values)

@@ -43,11 +43,14 @@ class Model
 
     public function create($values)
     {
+        var_dump($values);
         $this->prepare_query($values);
+        echo "INSERT INTO $this->called_class_name ($this->fillables_query)
+                                              VALUES($this->values_query)";
         $result = $this->db->execute("INSERT INTO 
                                               $this->called_class_name ($this->fillables_query)
                                               VALUES($this->values_query)",$values);
-        return $result;
+        var_dump($result);
 
     }
 

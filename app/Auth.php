@@ -8,6 +8,7 @@
 
 namespace App;
 
+use Models\Users;
 
 class Auth
 {
@@ -16,8 +17,23 @@ class Auth
 
     }
 
-    public function register($user)
+    public function register($request)
     {
+        $user = new Users();
+        $isset = $user->find(['name'=>$request['name']]);
+        if($isset){
+            echo 'Пользователь с таким именем существует';
+            return ('Пользователь с таким именем существует');
+        };
+
+        $isset = $user->find(['email'=>$request['email']]);
+        if($isset){
+            echo 'Пользователь с таким Email существует';
+            return ('Пользователь с таким Email существует');
+        };
+        echo 'this';
+        $user->create($request);
+
 
     }
 }
