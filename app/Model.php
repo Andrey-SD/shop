@@ -12,39 +12,56 @@ class Model
 {
     private $db;
     private $called_class_name;
+    private $fillables_query;
+    private $values_query;
 
     /**
      * Model constructor.
      */
-//    public function __construct()
-//    {
-//        $this->get_class_name();
-//        $this->get_class_properties();
-//        $this->db = new Db;
-//    }
-//
-//    protected function get_class_name()
-//    {
-//        $this->called_class_name = substr(strrchr(get_called_class(), '\\'), 1);
-//        $this->called_class_name = strtolower($this->called_class_name);
-//    }
-//
-    protected function get_class_properties()
+    public function __construct()
     {
-        $obj =
-        var_dump(get_object_vars();
+        $this->db = new Db;
+        $this->get_class_name();
+    }
+
+    protected function get_class_name()
+    {
+        $this->called_class_name = substr(strrchr(get_called_class(), '\\'), 1);
+        $this->called_class_name = strtolower($this->called_class_name);
+    }
+
+    private function prepare_query($values)
+    {
+        $keys = array_keys($values);
+        $this->fillables_query = implode(', ', $keys);
+        for ($count = 0; $count<sizeof($keys); $count++){
+            $keys[$count] = ':'.$keys[$count];
+        }
+        $this->values_query = implode(', ', $keys);
 
     }
 
-    public function create($object)
+    public function create($values)
     {
-//        $this->db = new Db;
-//        $this->db->execute("INSERT INTO $this->called_class_name
-//                                SET name='id',email = 'aaaa',password='123';");
+        $this->prepare_query($values);
+        $result = $this->db->execute("INSERT INTO 
+                                              $this->called_class_name ($this->fillables_query)
+                                              VALUES($this->values_query)",$values);
+        return $result;
+
     }
 
-    public function find()
+    public function find($values=null)
     {
+        if (empty($values)){
+            echo 'working';
+            $result = $this->db->query("Select * FROM $this->called_class_name",$values);
+            return $result;
+        }
+        $this->prepare_query($values);
+        $result = $this->db->query("Select * FROM $this->called_class_name
+                                              WHERE $this->fillables_query = $this->values_query",$values);
+        return $result;
 
     }
 

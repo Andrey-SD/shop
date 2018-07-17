@@ -2,20 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: phpuser
- * Date: 16.07.18
- * Time: 15:57
+ * Date: 17.07.18
+ * Time: 16:20
  */
 
 namespace Models;
 
-use App\Model;
 
-
-class Users extends Model
+class Users
 {
-    public $name;
-    public $email;
-    public $password;
-    public $role;
 
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: phpuser
- * Date: 16.07.18
- * Time: 13:38
- */
 
 namespace App;
 
@@ -20,44 +14,32 @@ class Db
         $this->connection();
     }
 
-    /**
-     * @return $this
-     */
     private function connection()
     {
-        require_once ROOT.'configs/db.php';
-        try{
-            $this->pdo = new PDO("mysql:host=$host;dbname=$database",$user,$password);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }catch (PDOException $e){
-            exit($e->getMessage());
+        require_once ROOT . 'configs/db.php';
+        try {
+            $this->pdo = new PDO("$prefix:host=$host;
+                                        dbname=$database",
+                $user, $password);
+        } catch (PDOException $e) {
+            echo $e;
         }
 
         return $this;
     }
 
-    /**
-     * @param $sql
-     * @return mixed
-     */
-
-    public function execute($sql)
+    public function execute($sql_query,$values)
     {
-        $query_id = $this->pdo->prepare($sql);
-        return $query_id->execute();
+        $query_id = $this->pdo->prepare($sql_query);
+        return $query_id->execute($values);
     }
 
-    /**
-     * @param $sql
-     * @return array
-     */
-
-    public function query($sql)
+    public function query($sql_query,$values)
     {
-        $query_id = $this->pdo->prepare($sql);
-        $query_id ->execute();
+        $query_id = $this->pdo->prepare($sql_query);
+        $query_id->execute($values);
         $result = $query_id->fetchAll(PDO::FETCH_ASSOC);
-        if ($result === false){
+        if ($result === false) {
             return [];
         }
         return $result;
