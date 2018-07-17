@@ -9,7 +9,9 @@
 namespace Models;
 
 
-class Users
+use App\Model;
+
+class Users extends Model
 {
 
 }
