@@ -34,36 +34,34 @@ class Model
     {
         $keys = array_keys($values);
         $this->fillables_query = implode(', ', $keys);
-        for ($count = 0; $count<sizeof($keys); $count++){
+        for ($count = 0; $count<sizeof($keys); $count++) {
             $keys[$count] = ':'.$keys[$count];
         }
         $this->values_query = implode(', ', $keys);
-
     }
 
     public function create($values)
     {
-        var_dump($values);
         $this->prepare_query($values);
-        echo "INSERT INTO $this->called_class_name ($this->fillables_query)
-                                              VALUES($this->values_query)";
         $result = $this->db->execute("INSERT INTO 
                                               $this->called_class_name ($this->fillables_query)
                                               VALUES($this->values_query)",$values);
-        var_dump($result);
+        return($result);
 
     }
 
     public function find($values=null)
     {
         if (empty($values)){
-            echo 'working';
             $result = $this->db->query("Select * FROM $this->called_class_name",$values);
             return $result;
         }
         $this->prepare_query($values);
         $result = $this->db->query("Select * FROM $this->called_class_name
                                               WHERE $this->fillables_query = $this->values_query",$values);
+        if(sizeof($result) == 1){
+            return $result[0];
+        }
         return $result;
 
     }

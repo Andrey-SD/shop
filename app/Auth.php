@@ -12,9 +12,33 @@ use Models\Users;
 
 class Auth
 {
-    public function login($user)
+    private function authorize($user)
     {
+        $_SESSION['user'] = ['id'=>$user['id'],'name'=>$user['name']];
+        header( 'Location: /');
+    }
 
+    static function check()
+    {
+        if(isset($_COOKIE[session_name()]) && isset($_SESSION['user'])){
+            if($_COOKIE[session_name()] == session_id()){
+                return $_SESSION['user'] ;
+            }
+        }
+        return false;
+    }
+
+    public function login($request)
+    {
+        $users = new Users();
+        $user = $users->find(['email'=>$request['email']]);
+        if(!empty($user) &&
+                        $user['email'] == $request['email'] &&
+                        $user['password'] == $request['password']){
+            $this->authorize($user);
+        }else{
+            echo 'user not';
+        }
     }
 
     public function register($request)
@@ -31,9 +55,25 @@ class Auth
             echo 'Пользователь с таким Email существует';
             return ('Пользователь с таким Email существует');
         };
-        echo 'this';
-        $user->create($request);
+        $result = $user->create(['name'=>$request['name'],
+                        'email'=>$request['email'],
+                        'password'=>$request['password']
+                        ]);
+        if($result != 0){
+            echo 'добавление юзера успешно';
+            $this->authorize($request);
+        } else {
+            echo 'добавление юзера НЕ успешно';
+        }
 
 
     }
+
+    public function logout()
+    {
+        setcookie(session_name(), '', time() - 1);
+        unset($_SESSION[session_id()]);
+        header( 'Location: /');
+    }
 }
+

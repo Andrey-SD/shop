@@ -9,22 +9,24 @@ class AuthController
     {
         $request = $_POST;
         $validator = new Validator();
-        if($validator -> run($user)){
+        if($validator -> run($request)){
             $auth = new Auth();
             $auth -> login($request);
-        }else{
-
-        };
-
+        }
     }
 
     public function register()
     {
-
         $user = $_POST;
         $validator = new Validator();
-
         $auth = new Auth();
         $auth -> register($user);
     }
+
+    public function logout()
+    {
+        $auth = new Auth();
+        $auth -> logout();
+    }
 }
+

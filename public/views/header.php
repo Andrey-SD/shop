@@ -1,27 +1,34 @@
+<?php
+    use App\Auth;
+?>
 <header>
     <div class="header">
         <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-8">
+            <div class="col-xs-12 col-sm-7 col-md-7">
 
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <form action="/login" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email"
-                               name='email'
-                               value="<?php echo 'andrey@andrey.com'.@$_POST['email'] ?>">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name='password' placeholder="Пароль" value="123456">
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Запомнить меня
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Вход</button>
-                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-default">Авторизация</a>
-                </form>
+            <div class="col-xs-12 col-sm-5 col-md-5">
+                <?php
+                    if (Auth::check()){
+                        $name = Auth::check()['name'];
+                        echo "
+                            <div class='auth-check'>
+                                <p class='user-name'>$name</p>
+                                <a href='#'><img src='/views/img/basket.svg' alt=''></a>
+                                <a href='logout'><img src='/views/img/logout.svg' alt=''></a>
+                            </div>
+                            
+                        ";
+                    } else {
+
+                        echo'
+                            <div class=\'auth-check\'>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#ModalRegister">Регистрация</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#ModalLogin">Авторизация</button>
+                            </div>
+                        ';
+                    }
+                ?>
             </div>
         </div>
 
@@ -41,14 +48,41 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Продукты</a></li>
-                <li data-toggle="modal" data-target="#exampleModalCenter"><a href="#">Логин</a></li>
-                <li><a href="#">Корзина</a></li>
               </ul>
             </div>
       </div>
     </nav>
-<!--    modal-->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!--    login modal-->
+    <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Введите Email</label>
+                        <input type="text" name='email'
+                               class="form-control" aria-describedby="emailHelp"
+                               placeholder="Email" value="andrey@andrey.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Введите пароль</label>
+                        <input type="password" name='password'
+                               class="form-control"
+                               placeholder="Пароль" value="123456">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Запомнить меня
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Авторизироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!--    login modal end-->
+<!--   register modal-->
+    <div class="modal fade" id="ModalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form action="/register" method="POST">
@@ -81,5 +115,5 @@
             </div>
         </div>
     </div>
-<!--    modal-->
+<!--   register modal end-->
 </header>
