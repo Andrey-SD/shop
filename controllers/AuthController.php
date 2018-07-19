@@ -17,10 +17,13 @@ class AuthController
 
     public function register()
     {
-        $user = $_POST;
+        $request = $_POST;
         $validator = new Validator();
-        $auth = new Auth();
-        $auth -> register($user);
+        if($validator -> run($request)){
+            $auth = new Auth();
+            $auth -> register($request);
+        }
+
     }
 
     public function logout()

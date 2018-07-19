@@ -28,6 +28,16 @@ class Auth
         return false;
     }
 
+    public function authToken(){
+        if (isset($_COOKIE['token'])){
+            $users = new Users();
+            $user = $users->find(['remember_token' => $_COOKIE['token']]);
+            $_SESSION['user'] = ['id'=>$user['id'],'name'=>$user['name']];
+            $_COOKIE[session_name()] = session_id();
+            return true;
+        }else{return false;}
+    }
+
     public function login($request)
     {
         $users = new Users();
@@ -35,6 +45,11 @@ class Auth
         if(!empty($user) &&
                         $user['email'] == $request['email'] &&
                         $user['password'] == $request['password']){
+            if(isset($request['remember'])){
+                $remember_token = md5(uniqid(rand(), true));
+                setcookie('token', $remember_token, time()+86400);
+                $users->update(['remember_token'=>$remember_token],['id'=>$user['id']]);
+            }
             $this->authorize($user);
         }else{
             echo 'user not';
@@ -60,20 +75,17 @@ class Auth
                         'password'=>$request['password']
                         ]);
         if($result != 0){
-            echo 'добавление юзера успешно';
             $this->authorize($request);
         } else {
             echo 'добавление юзера НЕ успешно';
         }
-
-
     }
 
     public function logout()
     {
         setcookie(session_name(), '', time() - 1);
+        setcookie('token', '', time()-1);
         unset($_SESSION[session_id()]);
         header( 'Location: /');
     }
 }
-

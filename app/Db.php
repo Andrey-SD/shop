@@ -30,6 +30,7 @@ class Db
 
     public function execute($sql_query,$values)
     {
+        $this->pdo->prepare($sql_query);
         $query_id = $this->pdo->prepare($sql_query);
         $query_id->execute($values);
         return($this->pdo->lastInsertId());
@@ -44,6 +45,5 @@ class Db
             return [];
         }
         return $result;
-
     }
 }

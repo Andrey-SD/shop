@@ -66,9 +66,10 @@ class Model
 
     }
 
-    public function update()
+    public function update($set, $where)
     {
-
+        $values=array_merge($set, $where);
+        $this->db->execute("UPDATE users SET remember_token=:remember_token WHERE id=:id",$values);
     }
 
     public function delete()

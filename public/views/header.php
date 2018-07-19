@@ -71,7 +71,7 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> Запомнить меня
+                            <input type="checkbox" name="remember"> Запомнить меня
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Авторизироваться</button>
