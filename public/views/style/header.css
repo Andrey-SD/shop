@@ -4,21 +4,36 @@
     padding: 5px !important;
 }
 
-.modal-content{
-    padding: 7px;
-    padding-bottom: 40px;
-}
-
-.form-group{
-    margin: 2px;
-}
-
-.form-group input{
-    height: 20px;
-    /*padding: 0px;*/
-}
-
-
 .header form button{
     margin-bottom: 2px;
+}
+
+.auth-check{
+    padding-right: 10px;
+    text-align: right;
+}
+
+.auth-check>*{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.auth-check img{
+    height: 30px;
+    width: 30px;
+
+}
+
+.user-name{
+    margin: 5px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.user-name:before{
+    content: 'Здравствуйте, ';
+    font-size: 15px;
+    text-transform: none;
+    color: #767676;
 }

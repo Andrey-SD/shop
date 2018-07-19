@@ -21,16 +21,19 @@ class Db
             $this->pdo = new PDO("$prefix:host=$host;
                                         dbname=$database",
                 $user, $password);
-        } catch (PDOException $e) { }
+        } catch (PDOException $e) {
+            echo $e;
+        }
 
         return $this;
     }
 
     public function execute($sql_query,$values)
     {
+        $this->pdo->prepare($sql_query);
         $query_id = $this->pdo->prepare($sql_query);
         $query_id->execute($values);
-        return($query_id->lastInsertId());
+        return($this->pdo->lastInsertId());
     }
 
     public function query($sql_query,$values)
@@ -42,6 +45,5 @@ class Db
             return [];
         }
         return $result;
-
     }
 }

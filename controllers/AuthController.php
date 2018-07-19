@@ -7,22 +7,29 @@ class AuthController
 {
     public function login()
     {
-        $user = $_POST;
+        $request = $_POST;
         $validator = new Validator();
-        echo $validator -> run($user);
-        if($validator -> run($user)){
+        if($validator -> run($request)){
             $auth = new Auth();
-            $auth -> login($user);
-        }else{};
-
+            $auth -> login($request);
+        }
     }
 
     public function register()
     {
-        $user = $_POST;
+        $request = $_POST;
         $validator = new Validator();
-        echo $validator -> run($user);
+        if($validator -> run($request)){
+            $auth = new Auth();
+            $auth -> register($request);
+        }
+
+    }
+
+    public function logout()
+    {
         $auth = new Auth();
-        $auth -> register($user);
+        $auth -> logout();
     }
 }
+

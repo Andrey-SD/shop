@@ -8,7 +8,6 @@
 
 namespace App;
 
-
 class Errors
 {
     public function errorsShow($error_code)
