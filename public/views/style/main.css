@@ -6,3 +6,7 @@ body>*{
 .form-group label{
     margin-top: 20px;
 }
+
+.error{
+    color: red;
+}

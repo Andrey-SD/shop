@@ -34,16 +34,15 @@ class Auth
             $user = $users->find(['remember_token' => $_COOKIE['token']]);
             $_SESSION['user'] = ['id'=>$user['id'],'name'=>$user['name']];
             $_COOKIE[session_name()] = session_id();
-            return true;
-        }else{return false;}
+        }
     }
 
     public function login($request)
     {
         $users = new Users();
-        $user = $users->find(['email'=>$request['email']]);
+        $user = $users->find(['name'=>$request['name']]);
         if(!empty($user) &&
-                        $user['email'] == $request['email'] &&
+                        $user['name'] == $request['name'] &&
                         $user['password'] == $request['password']){
             if(isset($request['remember'])){
                 $remember_token = md5(uniqid(rand(), true));
@@ -52,7 +51,11 @@ class Auth
             }
             $this->authorize($user);
         }else{
-            echo 'user not';
+            $_SESSION['errors'] = ['field'=>'name',
+                                   'error'=>'Неверное имя пользователя или пароль'];
+            $_SESSION['errors']['form']='Login';
+            $_SESSION['old_value'] = $request;
+            header( 'Location: /');
         }
     }
 
@@ -61,13 +64,11 @@ class Auth
         $user = new Users();
         $isset = $user->find(['name'=>$request['name']]);
         if($isset){
-            echo 'Пользователь с таким именем существует';
             return ('Пользователь с таким именем существует');
         };
 
         $isset = $user->find(['email'=>$request['email']]);
         if($isset){
-            echo 'Пользователь с таким Email существует';
             return ('Пользователь с таким Email существует');
         };
         $result = $user->create(['name'=>$request['name'],
@@ -77,7 +78,7 @@ class Auth
         if($result != 0){
             $this->authorize($request);
         } else {
-            echo 'добавление юзера НЕ успешно';
+            false;
         }
     }
 

@@ -7,7 +7,7 @@
     "psr-4": {
       "App\\": "app/",
       "Models\\": "models/",
-      "Src\\": "src/";
+      "Src\\": "src/"
     }
   },
   "require": {}
