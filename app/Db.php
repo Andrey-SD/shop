@@ -16,7 +16,7 @@ class Db
 
     private function connection()
     {
-        require_once ROOT . 'configs/db.php';
+        require ROOT . 'configs/db.php';
         try {
             $this->pdo = new PDO("$prefix:host=$host;
                                         dbname=$database",

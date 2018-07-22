@@ -23,8 +23,8 @@
 
                         echo'
                             <div class=\'auth-check\'>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#ModalRegister">Регистрация</button>
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#ModalLogin">Авторизация</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#ModalRegister">Регистрация</button>
                             </div>
                         ';
                     }
@@ -58,16 +58,24 @@
             <div class="modal-content">
                 <form action="/login" method="POST">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Введите Email</label>
-                        <input type="text" name='email'
-                               class="form-control" aria-describedby="emailHelp"
-                               placeholder="Email" value="andrey@andrey.com">
+                        <label for="exampleInputEmail1">Введите имя</label>
+                        <input type="text" name='name'
+                               class="form-control" aria-describedby="nameHelp"
+                               placeholder="Имя"
+                        <?php 
+                            echo isset($_SESSION['errors']) ? 'value="'.$_SESSION['old_value']['name'].'">' : '>';
+                            echo @$_SESSION['errors']['field']=='name' ? '<p class="error">'.$_SESSION['errors']['error'].'</p>' : '';
+                        ?>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Введите пароль</label>
                         <input type="password" name='password'
                                class="form-control"
-                               placeholder="Пароль" value="123456">
+                               placeholder="Пароль"
+                        <?php 
+                            echo isset($_SESSION['errors']) ? 'value="'.$_SESSION['old_value']['password'].'">' : '>';
+                            echo @$_SESSION['errors']['field']=='password' ? '<p class="error">'.$_SESSION['errors']['error'].'</p>' : '';
+                        ?>
                     </div>
                     <div class="checkbox">
                         <label>
@@ -90,25 +98,41 @@
                     <label for="exampleInputEmail1">Введите имя</label>
                     <input type="text" name='name'
                            class="form-control" aria-describedby="emailHelp"
-                           placeholder="Имя" value="andrey">
+                           placeholder="Имя"
+                    <?php 
+                            echo isset($_SESSION['errors']) ? 'value="'.$_SESSION['old_value']['name'].'">' : '>';
+                            echo @$_SESSION['errors']['field']=='name' ? '<p class="error">'.$_SESSION['errors']['error'].'</p>' : '';
+                        ?>
                   </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Введите Email</label>
                         <input type="email" name='email'
                                class="form-control" aria-describedby="emailHelp"
-                               placeholder="Email" value="andrey@andrey.com">
+                               placeholder="Email"
+                        <?php 
+                            echo isset($_SESSION['errors']) ? 'value="'.$_SESSION['old_value']['email'].'">' : '>';
+                            echo @$_SESSION['errors']['field']=='email' ? '<p class="error">'.$_SESSION['errors']['error'].'</p>' : '';
+                        ?>
                     </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Введите пароль</label>
                     <input type="password" name='password'
                            class="form-control"
-                           placeholder="Пароль" value="123456">
+                           placeholder="Пароль"
+                           <?php 
+                            echo isset($_SESSION['errors']) ? 'value="'.$_SESSION['old_value']['password'].'">' : '>';
+                            echo @$_SESSION['errors']['field']=='password' ? '<p class="error">'.$_SESSION['errors']['error'].'</p>' : '';
+                        ?>
                   </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Повторите пароль</label>
                         <input type="password" name="re_password"
                                class="form-control"
-                               placeholder="Повторите пароль" value="123456">
+                               placeholder="Повторите пароль"
+                               <?php 
+                            echo isset($_SESSION['errors']) ? 'value="'.$_SESSION['old_value']['re_password'].'">' : '>';
+                            echo @$_SESSION['errors']['field']=='re_password' ? '<p class="error">'.$_SESSION['errors']['error'].'</p>' : '';
+                        ?>
                     </div>
                   <button type="submit" class="btn btn-primary">Регистрация</button>
                 </form>
@@ -117,3 +141,9 @@
     </div>
 <!--   register modal end-->
 </header>
+<?php
+    echo (isset($_SESSION['errors']['form'])) ?
+        '<script>$(\'#Modal'.$_SESSION['errors']['form'].'\').modal(\'show\');</script>' : '';
+    unset($_SESSION['errors']);
+    unset($_SESSION['old_value']);
+?>

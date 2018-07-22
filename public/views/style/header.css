@@ -1,5 +1,4 @@
 .btn{
-    float: right;
     margin-right: 5px !important;
     padding: 5px !important;
 }
@@ -36,4 +35,8 @@
     font-size: 15px;
     text-transform: none;
     color: #767676;
+}
+
+form{
+    margin: 10px;
 }

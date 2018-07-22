@@ -52,7 +52,7 @@ class Model
 
     public function find($values=null)
     {
-        if (empty($values)){
+        if ($values == null){
             $result = $this->db->query("Select * FROM $this->called_class_name",$values);
             return $result;
         }
