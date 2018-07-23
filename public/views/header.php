@@ -14,8 +14,15 @@
                         echo "
                             <div class='auth-check'>
                                 <p class='user-name'>$name</p>
-                                <a href='#'><img src='/views/img/basket.svg' alt=''></a>
-                                <a href='logout'><img src='/views/img/logout.svg' alt=''></a>
+                                <div>
+                                    <a id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='false' aria-expanded='false'><img src='/views/img/basket.svg' alt='корзина'></a>
+   
+                                    <ul class='dropdown-menu' aria-labelledby='dropdownMenu1' id='basket-group'>
+                                        
+                                        
+                                    </ul>
+                                </div>
+                                <a href='logout'><img src='/views/img/logout.svg' alt='выход'></a>
                             </div>
                             
                         ";
@@ -29,6 +36,7 @@
                         ';
                     }
                 ?>
+                
             </div>
         </div>
 

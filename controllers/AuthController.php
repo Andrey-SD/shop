@@ -9,8 +9,9 @@ class AuthController
     {
         $request = $_POST;
         $validation = new Validation();
-        if($validation -> run($request,[                                       'name'=>'required|mini:6',
-            'password' => 'required|mini:6'])){
+        if($validation -> run($request,[
+                'name'=>'required|mini:6',
+                'password' => 'required|mini:6'])){
             $auth = new Auth();
             $auth -> login($request);
         }else{
