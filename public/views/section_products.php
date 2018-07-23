@@ -36,10 +36,14 @@
                 url: '/basket',
                 type: 'GET',
                 data: {'id':id},
-                success: function(product){
-                    var product = jQuery.parseJSON(product);
-                    var str = '<li><a href="/product?id='+product.id+'"><span>'+product.name+' </span><span> '+product.price+' грн</span></a></li>';
-                    $('#basket-group').append(str);
+                success: function(basket){
+                    $('tr').remove();
+                    var basket = jQuery.parseJSON(basket);
+                    console.log(basket);
+                        basket.forEach(function(position, i, basket) {
+                        var str = '<tr><td><a href="/product?id='+position.id+'"><span>'+position.name+'</span></a></td><td><span> '+position.qty+'x </span></td><td><span> '+position.price+' грн</span></td></tr>';
+                        $('#basket-group table').append(str);
+                    });
                 }
             });
         });
