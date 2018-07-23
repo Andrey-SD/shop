@@ -43,7 +43,7 @@ class Auth
         $user = $users->find(['name'=>$request['name']]);
         if(!empty($user) &&
                         $user['name'] == $request['name'] &&
-                        $user['password'] == $request['password']){
+                        $user['password'] == md5($request['password'])){
             if(isset($request['remember'])){
                 $remember_token = md5(uniqid(rand(), true));
                 setcookie('token', $remember_token, time()+86400);
@@ -73,8 +73,7 @@ class Auth
         };
         $result = $user->create(['name'=>$request['name'],
                         'email'=>$request['email'],
-                        'password'=>$request['password']
-                        ]);
+                        'password'=>md5($request['password'])]);
         if($result != 0){
             $this->authorize($request);
         } else {

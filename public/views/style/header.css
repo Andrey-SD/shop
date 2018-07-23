@@ -40,3 +40,24 @@
 form{
     margin: 10px;
 }
+
+.dropdown-menu{
+    padding: 5px;
+}
+
+.dropdown-menu p{
+    color: #337AB7;
+    border-bottom: 1px solid #337AB7;
+}
+
+td:first-child{
+    width: 200px;
+}
+
+td:not(:first-child){
+    text-align: right;
+}
+
+td:last-child{
+    padding-left: 5px !important;
+}

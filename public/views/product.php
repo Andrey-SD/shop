@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="/views/style/product.css">
 </head>
 <body>
-<?php include VIEWS.'header.php'; ?>
+<?php
+    use App\Auth;
+    
+    $auth = new Auth;
+    include VIEWS.'header.php'; ?>
 <section>
     <div class="row">
         <div class="col-lg-6 col-xs-6 col-md-6">
@@ -49,11 +53,12 @@
             <p><?php echo $product['description']; ?></p>
             <div class="class-bottom">
                 <span class="product_price"><?php echo $product['price']; ?></span>
-                <button class="btn btn-primary">В корзину</button>
-                <button class="btn btn-primary">Купить</button>
+                <p class="links-group">
+                    <button type="button" class="btn btn-primary" role="button" data-id="<?php echo $product['id'].'"';echo $auth->check() ? '':'disabled'; ?>
+                        >В корзину</button>
+                    <a href="<?php echo '/product?id='.$product['id'];?>" class="btn btn-default " role="button">Подробнее</a>
+                </p>
             </div>
-
-
         </div>
     </div>
     <div class="nav-div">
@@ -78,7 +83,30 @@
             </div>
         </div>
     </div>
-
 </section>
+<script>
+    $(document).on("click", ".links-group>button", getBasket);
+    $(document).ready(getBasket());
+    function getBasket(){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/basket',
+            type: 'GET',
+            data: {'id':id},
+            success: function(basket){
+                $('tr').remove();
+                var basket = jQuery.parseJSON(basket);
+                var summ = Number(0);
+                basket.forEach(function(position, i, basket) {
+                var str = '<tr><td><a href="/product?id='+position.id+'"><span>'+position.name+'</span></a></td><td><span> '+position.qty+'x </span></td><td><span> '+position.price+' грн</span></td></tr>';
+                summ += position.price*position.qty;
+                console.log(typeof(summ));
+                $('#basket-group table').append(str);
+                });
+                $('#basket-group table').append('<tr><td></td><td>Итого:</td><td>'+summ+'</td></tr>');
+            }
+        });
+    };
+</script>
 </body>
 </html>

@@ -7,9 +7,17 @@ class BasketController
     public function index()
     {
         $request = $_GET;
+        if(!isset($request['id'])){
+            if(isset($_SESSION['basket'])){
+                echo json_encode($_SESSION['basket']);
+                return;
+            }
+            echo json_encode([]);
+            return;
+        }
         $product = new Products;
         $product = $product->find(['id'=>$request['id']]);
-        $product +=['qty'=>'']; 
+        $product +=['qty'=>'1']; 
 
         if(!isset($_SESSION['basket'])){
             $_SESSION['basket']=[];
@@ -23,5 +31,6 @@ class BasketController
         }
         array_push ($_SESSION['basket'],$product);
         echo json_encode($_SESSION['basket']);
+        return;
     }
 }

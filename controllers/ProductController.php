@@ -1,6 +1,7 @@
 <?php
 
 use App\Errors;
+use Models\Products;
 
 class ProductController
 {
@@ -12,14 +13,14 @@ class ProductController
                 $errors = new Errors();
                 $errors -> errorsShow('500');
             }
-            $products = require ROOT.'storage/products_list.php';
-            foreach ($products as $product){
-                if ($product['id']==$output['id']){
-                    require VIEWS.'product.php';
-                    break;
-                }
+            $products = new Products;
+            $product = $products->find(['id'=>$output['id']]);
+            if(sizeof($product)<1){
+                $errors = new Errors();
+                $errors -> errorsShow('404');
             }
-        } else {
+            require VIEWS.'product.php';
+        }else{
             $errors = new Errors();
             $errors -> errorsShow('404');
         }

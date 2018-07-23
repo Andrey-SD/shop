@@ -2,12 +2,17 @@
 
 use App\Auth;
 use Src\Validation;
+use App\Errors;
 
 class AuthController
 {
     public function login()
     {
         $request = $_POST;
+        if (sizeof($request)==0){
+            $errors = new Errors();
+            $errors -> errorsShow('500');
+        }
         $validation = new Validation();
         if($validation -> run($request,[
                 'name'=>'required|mini:6',
@@ -23,6 +28,10 @@ class AuthController
     public function register()
     {
         $request = $_POST;
+        if (sizeof($request)==0){
+            $errors = new Errors();
+            $errors -> errorsShow('500');
+        }
         $validation = new Validation();
         if($validation -> run($request,[
                             'name'=>'required|maxi:64|mini:6|unique:name|charnum|injection',

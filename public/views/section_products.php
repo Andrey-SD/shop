@@ -1,5 +1,8 @@
 <section>
 <?php
+    use App\Auth;
+    
+    $auth = new Auth;
     $inc = 0;
     foreach($products as $product){
         if($inc%4==0){
@@ -14,7 +17,8 @@
                         <p><?php echo $product['description'];?></p>
                         <p class="product_price"><?php echo $product['price'];?></p>
                         <p class="links-group">
-                            <a href="#" class="btn btn-primary" role="button" data-id="<?php echo $product['id'];?>">В корзину</a>
+                            <button type="button" class="btn btn-primary" role="button" data-id="<?php echo $product['id'].'"';echo $auth->check() ? '':'disabled'; ?>
+                            >В корзину</button>
                             <a href="<?php echo '/product?id='.$product['id'];?>" class="btn btn-default " role="button">Подробнее</a>
                         </p>
                     </div>
@@ -26,28 +30,27 @@
     }
 ?>
 </section>
-    
 <script>
-    
-    $(document).ready(function(){
-        $(".links-group>a:first-child").click(function(){
-            var id = $(this).attr('data-id');
-            $.ajax({
-                url: '/basket',
-                type: 'GET',
-                data: {'id':id},
-                success: function(basket){
-                    $('tr').remove();
-                    var basket = jQuery.parseJSON(basket);
-                    console.log(basket);
-                        basket.forEach(function(position, i, basket) {
-                        var str = '<tr><td><a href="/product?id='+position.id+'"><span>'+position.name+'</span></a></td><td><span> '+position.qty+'x </span></td><td><span> '+position.price+' грн</span></td></tr>';
-                        $('#basket-group table').append(str);
-                    });
-                }
-            });
+    $(document).on("click", ".links-group>button", getBasket);
+    $(document).ready(getBasket());
+    function getBasket(){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/basket',
+            type: 'GET',
+            data: {'id':id},
+            success: function(basket){
+                $('tr').remove();
+                var basket = jQuery.parseJSON(basket);
+                var summ = Number(0);
+                basket.forEach(function(position, i, basket) {
+                var str = '<tr><td><a href="/product?id='+position.id+'"><span>'+position.name+'</span></a></td><td><span> '+position.qty+'x </span></td><td><span> '+position.price+' грн</span></td></tr>';
+                summ += position.price*position.qty;
+                $('#basket-group table').append(str);
+                });
+                $('#basket-group table').append('<tr><td></td><td>Итого:</td><td>'+summ+'</td></tr>');
+            }
         });
-        
-    });
+    };
 
 </script>
