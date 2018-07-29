@@ -6,7 +6,7 @@
  * Time: 15:23
  */
 
-namespace App;
+namespace Src\Database;
 
 class Model
 {
@@ -21,16 +21,16 @@ class Model
     public function __construct()
     {
         $this->db = new Db;
-        $this->get_class_name();
+        $this->getClassName();
     }
 
-    protected function get_class_name()
+    protected function getClassName()
     {
         $this->called_class_name = substr(strrchr(get_called_class(), '\\'), 1);
         $this->called_class_name = strtolower($this->called_class_name);
     }
 
-    private function prepare_query($values)
+    private function prepareQuery($values)
     {
         $keys = array_keys($values);
         $this->fillables_query = implode(', ', $keys);
@@ -42,7 +42,7 @@ class Model
 
     public function create($values)
     {
-        $this->prepare_query($values);
+        $this->prepareQuery($values);
         $result = $this->db->execute("INSERT INTO 
                                               $this->called_class_name ($this->fillables_query)
                                               VALUES($this->values_query)",$values);
@@ -56,7 +56,7 @@ class Model
             $result = $this->db->query("Select * FROM $this->called_class_name",$values);
             return $result;
         }
-        $this->prepare_query($values);
+        $this->prepareQuery($values);
         $result = $this->db->query("Select * FROM $this->called_class_name
                                               WHERE $this->fillables_query = $this->values_query",$values);
         if(sizeof($result) == 1){
@@ -70,10 +70,5 @@ class Model
     {
         $values=array_merge($set, $where);
         $this->db->execute("UPDATE users SET remember_token=:remember_token WHERE id=:id",$values);
-    }
-
-    public function delete()
-    {
-
     }
 }

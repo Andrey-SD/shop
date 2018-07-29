@@ -6,7 +6,7 @@
  * Time: 10:57
  */
 
-namespace App;
+namespace Src;
 
 class Errors
 {

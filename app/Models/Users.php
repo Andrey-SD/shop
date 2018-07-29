@@ -6,10 +6,9 @@
  * Time: 16:20
  */
 
-namespace Models;
+namespace App\Models;
 
-
-use App\Model;
+use Src\Database\Model;
 
 class Users extends Model
 {

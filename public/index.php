@@ -1,8 +1,8 @@
 <?php
 
-use App\Route;
-use Models\Users;
+use Src\Route;
+use App\Models\Users;
 
-require_once dirname( __DIR__).'/app/Init.php';
+require dirname( __DIR__).'/app/Init.php';
 Init::start();
 Route::routing();

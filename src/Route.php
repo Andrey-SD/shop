@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Src;
 
 class Route
 {
@@ -15,7 +15,7 @@ class Route
             $explode = explode('@',$routes[$url['path']]);
             $controller = $explode[0];
             $action = $explode[1];
-            require_once ROOT.'controllers/'.$controller.'.php';
+            require ROOT.'app/Controllers/'.$controller.'.php';
             $class = new $controller;
             $class -> $action($url);
         } else {

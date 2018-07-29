@@ -8,7 +8,7 @@
 
 namespace Src;
 
-use Models\Users;
+use App\Models\Users;
 
 class Validation
 {

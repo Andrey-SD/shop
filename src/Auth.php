@@ -6,9 +6,9 @@
  * Time: 15:04
  */
 
-namespace App;
+namespace Src;
 
-use Models\Users;
+use App\Models\Users;
 
 class Auth
 {
@@ -66,7 +66,6 @@ class Auth
         if($isset){
             return ('Пользователь с таким именем существует');
         };
-
         $isset = $user->find(['email'=>$request['email']]);
         if($isset){
             return ('Пользователь с таким Email существует');

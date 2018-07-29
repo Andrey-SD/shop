@@ -1,6 +1,6 @@
 <?php
 
-use Models\Products;
+use App\Models\Products;
 
 class BasketController
 {
@@ -18,7 +18,6 @@ class BasketController
         $product = new Products;
         $product = $product->find(['id'=>$request['id']]);
         $product +=['qty'=>'1']; 
-
         if(!isset($_SESSION['basket'])){
             $_SESSION['basket']=[];
         }

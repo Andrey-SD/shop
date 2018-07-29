@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Src\Database;
 
 use PDO;
 
@@ -24,7 +24,6 @@ class Db
         } catch (PDOException $e) {
             echo $e;
         }
-
         return $this;
     }
 

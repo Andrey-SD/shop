@@ -1,7 +1,7 @@
 <?php
 
-use App\Errors;
-use Models\Products;
+use Src\Errors;
+use App\Models\Products;
 
 class ProductController
 {

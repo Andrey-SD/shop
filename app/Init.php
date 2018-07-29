@@ -1,6 +1,6 @@
 <?php
 
-use App\Auth;
+use Src\Auth;
 
 class Init
 {
@@ -8,7 +8,7 @@ class Init
     {
         define('ROOT', dirname( __DIR__).'/');
         define('VIEWS', ROOT.'/public/views/');
-        require_once dirname( __DIR__).'/vendor/autoload.php';
+        require dirname( __DIR__).'/vendor/autoload.php';
         session_start();
         $auth_token = new Auth;
         $auth_token->authToken();

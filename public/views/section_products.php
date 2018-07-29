@@ -1,6 +1,6 @@
 <section>
 <?php
-    use App\Auth;
+    use Src\Auth;
     
     $auth = new Auth;
     $inc = 0;

@@ -1,8 +1,8 @@
 <?php
 
-use App\Auth;
+use Src\Auth;
 use Src\Validation;
-use App\Errors;
+use Src\Errors;
 
 class AuthController
 {
@@ -44,7 +44,6 @@ class AuthController
             $_SESSION['errors']['form']='Register';
             header( 'Location: /');
         }
-
     }
 
     public function logout()
@@ -53,4 +52,3 @@ class AuthController
         $auth -> logout();
     }
 }
-

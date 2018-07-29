@@ -12,7 +12,7 @@
 </head>
 <body>
 <?php
-    use App\Auth;
+    use Src\Auth;
     
     $auth = new Auth;
     include VIEWS.'header.php'; ?>
